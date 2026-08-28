@@ -1,0 +1,98 @@
+<form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group">
+    <label>Nombre completo:</label>
+    <input type="text" formControlName="nombre" class="form-control" />
+    <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="text-danger">
+      <small *ngIf="f['nombre'].errors?.['required']">El nombre es obligatorio.</small>
+      <small *ngIf="f['nombre'].errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>DPI:</label>
+    <input type="text" formControlName="dpi" class="form-control" />
+    <div *ngIf="f['dpi'].touched && f['dpi'].invalid" class="text-danger">
+      <small *ngIf="f['dpi'].errors?.['required']">El DPI es obligatorio.</small>
+      <small *ngIf="f['dpi'].errors?.['pattern']">El DPI debe contener exactamente 13 dígitos numéricos.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Correo electrónico:</label>
+    <input type="email" formControlName="correo" class="form-control" />
+    <div *ngIf="f['correo'].touched && f['correo'].invalid" class="text-danger">
+      <small *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</small>
+      <small *ngIf="f['correo'].errors?.['email']">Ingrese un correo válido.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Teléfono:</label>
+    <input type="text" formControlName="telefono" class="form-control" />
+    <div *ngIf="f['telefono'].touched && f['telefono'].invalid" class="text-danger">
+      <small *ngIf="f['telefono'].errors?.['required']">El teléfono es obligatorio.</small>
+      <small *ngIf="f['telefono'].errors?.['pattern']">Formato de teléfono inválido (8 dígitos).</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Motivo de la consulta:</label>
+    <textarea formControlName="motivo" class="form-control" maxlength="250"></textarea>
+    <small class="text-muted">{{ motivoLength }}/250 caracteres</small>
+    <div *ngIf="f['motivo'].touched && f['motivo'].invalid" class="text-danger">
+      <small *ngIf="f['motivo'].errors?.['required']">El motivo es obligatorio.</small>
+      <small *ngIf="f['motivo'].errors?.['maxlength']">Has superado el límite de 250 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Especialidad:</label>
+    <select formControlName="especialidad" class="form-control">
+      <option value="">Seleccione una especialidad</option>
+      <option value="Medicina General">Medicina General</option>
+      <option value="Pediatría">Pediatría</option>
+      <option value="Cardiología">Cardiología</option>
+    </select>
+    <div *ngIf="f['especialidad'].touched && f['especialidad'].invalid" class="text-danger">
+      <small *ngIf="f['especialidad'].errors?.['required']">La especialidad es obligatoria.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Médico:</label>
+    <select formControlName="medico" class="form-control">
+      <option value="">Seleccione un médico</option>
+      <option value="Dr. Pérez">Dr. Pérez</option>
+      <option value="Dra. Gómez">Dra. Gómez</option>
+    </select>
+    <div *ngIf="f['medico'].touched && f['medico'].invalid" class="text-danger">
+      <small *ngIf="f['medico'].errors?.['required']">El médico es obligatorio.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Fecha de la cita:</label>
+    <input type="date" formControlName="fecha" class="form-control" />
+    <div *ngIf="f['fecha'].touched && f['fecha'].invalid" class="text-danger">
+      <small *ngIf="f['fecha'].errors?.['required']">La fecha es obligatoria.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Hora de la cita:</label>
+    <input type="time" formControlName="hora" class="form-control" />
+    <div *ngIf="f['hora'].touched && f['hora'].invalid" class="text-danger">
+      <small *ngIf="f['hora'].errors?.['required']">La hora es obligatoria.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <input type="checkbox" formControlName="primeraConsulta" />
+      ¿Es primera consulta?
+    </label>
+  </div>
+
+  <button type="submit" [disabled]="citaForm.invalid" class="btn btn-primary">Guardar Cita</button>
+</form>
