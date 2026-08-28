@@ -1,0 +1,168 @@
+<div class="layout-container">
+  <header class="main-header">
+    <div class="header-content">
+      <div class="logo-container">
+        <div class="logo-circle">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 14V6C19 4.89543 18.1046 4 17 4H7C5.89543 4 5 4.89543 5 6V14M19 14L21 16V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V16L5 14M19 14H5M9 10H15M12 7V13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand">
+          <h1>Portal de Citas</h1>
+          <p>Instituto de Seguridad Social</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link">Consultas</a>
+        <a href="#" class="nav-link active">Nueva Cita</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content-wrapper">
+    <div class="hero-section">
+      <h2>Reservar Nueva Cita Médica</h2>
+      <p>Complete el siguiente formulario para programar su atención profesional.</p>
+    </div>
+
+    <form [formGroup]="citaForm" (ngSubmit)="onSubmit()" class="custom-form">
+      <!-- Sección: Información Personal -->
+      <div class="form-section">
+        <h3 class="section-title">Información del Paciente</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" formControlName="nombre" class="form-control" placeholder="Ej. Juan Pérez" />
+            <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="text-danger">
+              <small *ngIf="f['nombre'].errors?.['required']">El nombre es obligatorio.</small>
+              <small *ngIf="f['nombre'].errors?.['minlength']">Mínimo 3 caracteres.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>DPI (13 dígitos)</label>
+            <input type="text" formControlName="dpi" class="form-control" placeholder="0000 00000 0000" />
+            <div *ngIf="f['dpi'].touched && f['dpi'].invalid" class="text-danger">
+              <small *ngIf="f['dpi'].errors?.['required']">El DPI es obligatorio.</small>
+              <small *ngIf="f['dpi'].errors?.['pattern']">Debe ser numérico de 13 dígitos.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" formControlName="correo" class="form-control" placeholder="usuario@ejemplo.com" />
+            <div *ngIf="f['correo'].touched && f['correo'].invalid" class="text-danger">
+              <small *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</small>
+              <small *ngIf="f['correo'].errors?.['email']">Ingrese un correo válido.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" formControlName="telefono" class="form-control" placeholder="12345678" />
+            <div *ngIf="f['telefono'].touched && f['telefono'].invalid" class="text-danger">
+              <small *ngIf="f['telefono'].errors?.['required']">El teléfono es obligatorio.</small>
+              <small *ngIf="f['telefono'].errors?.['pattern']">8 dígitos numéricos.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección: Detalles de la Cita -->
+      <div class="form-section">
+        <h3 class="section-title">Detalles de la Consulta</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Especialidad</label>
+            <select formControlName="especialidad" class="form-control">
+              <option value="">Seleccione una especialidad</option>
+              <option value="Medicina General">Medicina General</option>
+              <option value="Pediatría">Pediatría</option>
+              <option value="Cardiología">Cardiología</option>
+            </select>
+            <div *ngIf="f['especialidad'].touched && f['especialidad'].invalid" class="text-danger">
+              <small *ngIf="f['especialidad'].errors?.['required']">La especialidad es obligatoria.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Médico Especialista</label>
+            <select formControlName="medico" class="form-control">
+              <option value="">Seleccione un médico</option>
+              <option value="Dr. Pérez">Dr. Pérez</option>
+              <option value="Dra. Gómez">Dra. Gómez</option>
+            </select>
+            <div *ngIf="f['medico'].touched && f['medico'].invalid" class="text-danger">
+              <small *ngIf="f['medico'].errors?.['required']">El médico es obligatorio.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha sugerida</label>
+            <input type="date" formControlName="fecha" class="form-control" />
+            <div *ngIf="f['fecha'].touched && f['fecha'].invalid" class="text-danger">
+              <small *ngIf="f['fecha'].errors?.['required']">La fecha es obligatoria.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Hora preferida</label>
+            <input type="time" formControlName="hora" class="form-control" />
+            <div *ngIf="f['hora'].touched && f['hora'].invalid" class="text-danger">
+              <small *ngif="f['hora'].errors?.['required']">La hora es obligatoria.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Motivo de la consulta</label>
+          <textarea formControlName="motivo" class="form-control" placeholder="Describa brevemente el motivo de su visita..." maxlength="250"></textarea>
+          <div class="textarea-footer">
+            <div *ngIf="f['motivo'].touched && f['motivo'].invalid" class="text-danger">
+              <small *ngIf="f['motivo'].errors?.['required']">El motivo es obligatorio.</small>
+            </div>
+            <small class="text-muted">{{ motivoLength }}/250 caracteres</small>
+          </div>
+        </div>
+
+        <div class="checkbox-wrapper">
+          <label class="custom-checkbox">
+            <input type="checkbox" formControlName="primeraConsulta" />
+            <span class="checkmark"></span>
+            <span class="label-text">¿Es la primera vez que asiste a esta especialidad?</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline">Cancelar</button>
+        <button type="submit" [disabled]="citaForm.invalid" class="btn btn-primary">Agendar Cita</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <h4>Cris y sus amigos</h4>
+        <p>Ciudad de Guatemala, Guatemala</p>
+        <p>PBX: 2026 | Emergencias: 24/7</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacidad</a>
+        <a href="#">Términos de uso</a>
+        <a href="#">Ayuda</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Reservas Médicas. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
