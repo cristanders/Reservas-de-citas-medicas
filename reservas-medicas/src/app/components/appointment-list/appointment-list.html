@@ -1,1 +1,33 @@
-<p>appointment-list works!</p>
+<div class="appointment-list">
+  <h2>Listado de Citas</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Especialidad</th>
+        <th>Médico</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cita of citas">
+        <td>{{ cita.paciente }}</td>
+        <td>{{ cita.especialidad }}</td>
+        <td>{{ cita.medico }}</td>
+        <td>{{ cita.fecha }}</td>
+        <td>{{ cita.hora }}</td>
+        <td>{{ cita.estado }}</td>
+        <td>
+          <button (click)="editarCita(cita)">Editar</button>
+          <button (click)="confirmarEliminar(cita)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="citas.length === 0">No hay citas registradas.</p>
+</div>
